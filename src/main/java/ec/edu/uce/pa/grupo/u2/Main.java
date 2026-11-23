@@ -8,12 +8,7 @@ import ec.edu.uce.pa.grupo.u2.pedido.application.EnvioService;
 import ec.edu.uce.pa.grupo.u2.pedido.application.PagoService;
 import ec.edu.uce.pa.grupo.u2.pedido.application.PedidoService;
 import ec.edu.uce.pa.grupo.u2.pedido.application.ProductoService;
-import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Cliente;
-import ec.edu.uce.pa.grupo.u2.pedido.domain.model.DetallePedido;
-import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Envio;
-import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Pago;
 import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Pedido;
-import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Producto;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -47,14 +42,32 @@ public class Main implements QuarkusApplication {
     @Override
     public int run(String... args) throws Exception {
 
+        // ------------- Prueba de "DetallePedido"----------------
+        // CREATE 
         Pedido pedido = new Pedido();
-        pedido.setProducto("Producto prueba");
+        pedido.setProducto("Producto prueba 3");
         pedido.setPrecio(10.0);
         pedido.setFecha(LocalDateTime.now());
 
         this.pedidoService.guardar(pedido);
 
-        // Prueba de "DetallePedido"
+        // READ (buscar)
+        Pedido pedido1 = this.pedidoService.buscarPorId(3);
+        System.out.println("Pedido encontrado: " + pedido1);
+
+        // UPDATE (actualizar)
+        System.out.println("Valor anterior");
+        pedido.setPrecio(20000.0);
+        this.pedidoService.actualizar(pedido);
+
+        Pedido pedido2 = this.pedidoService.buscarPorId(3);
+        System.out.println("Pedido actualizado: " + pedido2);
+
+        // DELETE (eliminar)
+        this.pedidoService.eliminar(3);
+
+
+       /*  // Prueba de "DetallePedido"
         
         DetallePedido detallePedido = new DetallePedido();
         detallePedido.setCantidad(23);
@@ -97,7 +110,7 @@ public class Main implements QuarkusApplication {
         cliente.setEmail("fabri@gmail.com");
         cliente.setTelefono("0987654999");
 
-        this.clienteService.guardar(cliente);
+        this.clienteService.guardar(cliente); */
 
         return 0;
     }
