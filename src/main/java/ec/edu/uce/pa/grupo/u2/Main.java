@@ -1,6 +1,6 @@
 package ec.edu.uce.pa.grupo.u2;
 
-import java.time.LocalDateTime;
+import java.util.Optional;
 
 import ec.edu.uce.pa.grupo.u2.pedido.application.ClienteService;
 import ec.edu.uce.pa.grupo.u2.pedido.application.DetallePedidoService;
@@ -14,13 +14,13 @@ import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import jakarta.inject.Inject;
 
-@QuarkusMain 
+@QuarkusMain
 public class Main implements QuarkusApplication {
 
-    @Inject 
+    @Inject
     private PedidoService pedidoService;
 
-    @Inject 
+    @Inject
     private DetallePedidoService detallePedidoService;
 
     @Inject
@@ -42,75 +42,16 @@ public class Main implements QuarkusApplication {
     @Override
     public int run(String... args) throws Exception {
 
-        // ------------- Prueba de "DetallePedido"----------------
-        // CREATE 
-        Pedido pedido = new Pedido();
-        pedido.setProducto("Producto prueba 3");
-        pedido.setPrecio(10.0);
-        pedido.setFecha(LocalDateTime.now());
 
-        this.pedidoService.guardar(pedido);
 
         // READ (buscar)
-        Pedido pedido1 = this.pedidoService.buscarPorId(3);
-        System.out.println("Pedido encontrado: " + pedido1);
+        Optional<Pedido> pedido = this.pedidoService.buscarPorId(100);
 
-        // UPDATE (actualizar)
-        System.out.println("Valor anterior");
-        pedido.setPrecio(20000.0);
-        this.pedidoService.actualizar(pedido);
-
-        Pedido pedido2 = this.pedidoService.buscarPorId(3);
-        System.out.println("Pedido actualizado: " + pedido2);
-
-        // DELETE (eliminar)
-        this.pedidoService.eliminar(3);
-
-
-       /*  // Prueba de "DetallePedido"
-        
-        DetallePedido detallePedido = new DetallePedido();
-        detallePedido.setCantidad(23);
-        detallePedido.setPrecioUnitario(0.28);
-        detallePedido.setDescuento(0.05);
-        
-        this.detallePedidoService.guardar(detallePedido);
-
-        // Prueba de "Envio"
-        Envio envio = new Envio();
-        envio.setDireccion("Av. General Enriquez");
-        envio.setCiudad("Quito");
-        envio.setCodigoPostal("171112");
-        envio.setNumeroGuia("GUIA-12345");
-
-        this.envioService.guardar(envio);
-
-        // Prueba de "Pago"
-        Pago pago = new Pago();
-        pago.setMonto(150.75);
-        pago.setMetodoPago("Tarjeta de Crédito");
-        pago.setFechaPago("2026-11-23");
-        pago.setEstado("Completado");
-
-        this.pagoService.guardar(pago);
-
-        // Prueba de "Producto"
-        Producto producto = new Producto();
-        producto.setNombre("Play Station 5 PRO");
-        producto.setDescripcion("Play Station 5 PRO - 512GB SSD");
-        producto.setPrecio(1200.0);
-        producto.setStock(10);
-
-        this.productoService.guardar(producto);
-
-        // Prueba de "Cliente"
-        Cliente cliente = new Cliente();
-        cliente.setNombre("Fabricio");
-        cliente.setApellido("Topon");
-        cliente.setEmail("fabri@gmail.com");
-        cliente.setTelefono("0987654999");
-
-        this.clienteService.guardar(cliente); */
+        if (pedido.isPresent()) {
+            System.out.println("Pedido encontrado: " + pedido.get());
+        } else {
+            System.out.println("Pedido no encontrado");
+        }
 
         return 0;
     }

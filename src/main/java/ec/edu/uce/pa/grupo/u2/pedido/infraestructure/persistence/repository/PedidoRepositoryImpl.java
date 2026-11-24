@@ -1,15 +1,17 @@
 package ec.edu.uce.pa.grupo.u2.pedido.infraestructure.persistence.repository;
 
+import java.util.Optional;
+
 import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Pedido;
 import ec.edu.uce.pa.grupo.u2.pedido.domain.repository.PedidoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 
-@ApplicationScoped 
-public class PedidoRepositoryImpl implements  PedidoRepository{
+@ApplicationScoped
+public class PedidoRepositoryImpl implements PedidoRepository {
 
-    @Inject 
+    @Inject
     private EntityManager entityManager;
 
     @Override
@@ -18,8 +20,9 @@ public class PedidoRepositoryImpl implements  PedidoRepository{
     }
 
     @Override
-    public Pedido read(Integer id) {
-        return this.entityManager.find(Pedido.class,  id);
+    public Optional<Pedido> read(Integer id) {
+        Pedido pedido = this.entityManager.find(Pedido.class, id);
+        return Optional.ofNullable(pedido);
     }
 
     @Override
@@ -29,8 +32,8 @@ public class PedidoRepositoryImpl implements  PedidoRepository{
 
     @Override
     public void delete(Integer id) {
-        Pedido pedido = this.read(id);
-        this.entityManager.remove(pedido);
+        Optional<Pedido> pedido = this.read(id);
+        pedido.ifPresent(this.entityManager::remove);
     }
 
 }
