@@ -15,8 +15,8 @@ import jakarta.persistence.Table;
 public class Pedido {
 
     @Id // nombre se la SequenceGenerator pedido_seq
-    @SequenceGenerator (name = "pedido_seq", sequenceName = "pedd_seq_db", allocationSize = 1)
-    @GeneratedValue (strategy = GenerationType.SEQUENCE, generator = "pedido_seq")
+    @SequenceGenerator(name = "pedido_seq", sequenceName = "pedd_seq_db", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_seq")
     @Column(name = "pedd_id") // nombre de la columna en la base de datos
     private Integer id;
 
@@ -26,10 +26,14 @@ public class Pedido {
     @Column(name = "pedd_precio") // nombre de la columna en la base de datos
     private Double precio;
 
-    @Column (name = "pedd_fecha")
+    @Column(name = "pedd_fecha")
     private LocalDateTime fecha;
- // revisa como mapee mi clase Pedido, igualito debes hacer con las demas clases, menos con la clase Main
+
+    @Column(name = "pedd_numero")
+    private String numero;
+    // revisa como mapee mi clase Pedido, igualito debes hacer con las demas clases, menos con la clase Main
     // GETTERS Y SETTERS
+
     public Integer getId() {
         return id;
     }
@@ -62,12 +66,17 @@ public class Pedido {
         this.fecha = fecha;
     }
 
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
     @Override
     public String toString() {
         return "Pedido [id=" + id + ", producto=" + producto + ", precio=" + precio + ", fecha=" + fecha + "]";
     }
-
-    
-    
 
 }

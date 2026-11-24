@@ -23,6 +23,10 @@ public class PedidoService {
         return this.pedidoRepository.read(id);
     }
 
+    public Optional<Pedido> buscarPorNumero(String numero) {
+        return this.pedidoRepository.readByNumber(numero);
+    }
+
     public void actualizar(Pedido pedido){
         this.pedidoRepository.update(pedido);
     }

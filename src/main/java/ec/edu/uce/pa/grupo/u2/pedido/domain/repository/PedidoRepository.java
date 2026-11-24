@@ -1,5 +1,6 @@
 package ec.edu.uce.pa.grupo.u2.pedido.domain.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Pedido;
@@ -12,9 +13,13 @@ public interface PedidoRepository {
     //Read por id
     public Optional<Pedido> read(Integer id);
 
+    public Optional<Pedido> readByNumber(String numero);
+
+    public List<Pedido> readAll();
+
     // Update
     public void update(Pedido pedido);
-
+    
     //Delete
     public void delete(Integer id);
 
