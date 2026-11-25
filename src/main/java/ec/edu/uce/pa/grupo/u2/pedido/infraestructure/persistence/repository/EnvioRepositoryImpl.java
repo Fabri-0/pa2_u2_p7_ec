@@ -1,5 +1,7 @@
 package ec.edu.uce.pa.grupo.u2.pedido.infraestructure.persistence.repository;
 
+import java.util.Optional;
+
 import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Envio;
 import ec.edu.uce.pa.grupo.u2.pedido.domain.repository.EnvioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -18,8 +20,9 @@ public class EnvioRepositoryImpl implements EnvioRepository {
     }
 
     @Override
-    public Envio read(Integer id) {
-        return this.entityManager.find(Envio.class, id);
+    public Optional<Envio> read(Integer id) {
+        Envio envio = this.entityManager.find(Envio.class, id);
+        return Optional.ofNullable(envio);
     }
 
     @Override
@@ -29,8 +32,8 @@ public class EnvioRepositoryImpl implements EnvioRepository {
 
     @Override
     public void delete(Integer id) {
-        Envio envio = this.read(id);
-        this.entityManager.remove(envio);
+        Optional<Envio> envio = this.read(id);
+        envio.ifPresent(this.entityManager::remove);
     }
 
 }

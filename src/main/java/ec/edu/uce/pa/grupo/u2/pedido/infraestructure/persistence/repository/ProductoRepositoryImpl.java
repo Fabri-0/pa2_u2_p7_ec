@@ -1,5 +1,7 @@
 package ec.edu.uce.pa.grupo.u2.pedido.infraestructure.persistence.repository;
 
+import java.util.Optional;
+
 import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Producto;
 import ec.edu.uce.pa.grupo.u2.pedido.domain.repository.ProductoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -18,8 +20,9 @@ public class ProductoRepositoryImpl implements ProductoRepository {
     }
 
     @Override
-    public Producto read(Integer id) {
-        return this.entityManager.find(Producto.class, id);
+    public Optional<Producto> read(Integer id) {
+        Producto producto = this.entityManager.find(Producto.class, id);
+        return Optional.ofNullable(producto);
     }
 
     @Override
@@ -29,8 +32,8 @@ public class ProductoRepositoryImpl implements ProductoRepository {
 
     @Override
     public void delete(Integer id) {
-        Producto producto = this.read(id);
-        this.entityManager.remove(producto);
+        Optional<Producto> producto = this.read(id);
+        producto.ifPresent(this.entityManager::remove);
     }
 
 }

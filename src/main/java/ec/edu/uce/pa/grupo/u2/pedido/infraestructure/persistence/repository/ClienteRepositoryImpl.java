@@ -1,5 +1,7 @@
 package ec.edu.uce.pa.grupo.u2.pedido.infraestructure.persistence.repository;
 
+import java.util.Optional;
+
 import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Cliente;
 import ec.edu.uce.pa.grupo.u2.pedido.domain.repository.ClienteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -18,8 +20,9 @@ public class ClienteRepositoryImpl implements ClienteRepository {
     }
 
     @Override
-    public Cliente read(Integer id) {
-        return this.entityManager.find(Cliente.class, id);
+    public Optional<Cliente> read(Integer id) {
+        Cliente cliente = this.entityManager.find(Cliente.class, id);
+        return Optional.ofNullable(cliente);
     }
 
     @Override
@@ -29,8 +32,8 @@ public class ClienteRepositoryImpl implements ClienteRepository {
 
     @Override
     public void delete(Integer id) {
-        Cliente cliente = this.read(id);
-        this.entityManager.remove(cliente);
+        Optional<Cliente> cliente = this.read(id);
+        cliente.ifPresent(this.entityManager::remove);
     }
 
 }

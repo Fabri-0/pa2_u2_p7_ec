@@ -1,5 +1,7 @@
 package ec.edu.uce.pa.grupo.u2.pedido.infraestructure.persistence.repository;
 
+import java.util.Optional;
+
 import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Pago;
 import ec.edu.uce.pa.grupo.u2.pedido.domain.repository.PagoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -18,8 +20,9 @@ public class PagoRepositoryImpl implements PagoRepository {
     }
 
     @Override
-    public Pago read(Integer id) {
-        return this.entityManager.find(Pago.class, id);
+    public Optional<Pago> read(Integer id) {
+        Pago pago = this.entityManager.find(Pago.class, id);
+        return Optional.ofNullable(pago);
     }
 
     @Override
@@ -29,8 +32,8 @@ public class PagoRepositoryImpl implements PagoRepository {
 
     @Override
     public void delete(Integer id) {
-        Pago pago = this.read(id);
-        this.entityManager.remove(pago);
+        Optional<Pago> pago = this.read(id);
+        pago.ifPresent(this.entityManager::remove);
     }
 
 }

@@ -71,4 +71,10 @@ public class Envio {
     public void setNumeroGuia(String numeroGuia) {
         this.numeroGuia = numeroGuia;
     }
+
+    @Override
+    public String toString() {
+        return "Envio [id=" + id + ", direccion=" + direccion + ", ciudad=" + ciudad + ", codigoPostal="
+                + codigoPostal + ", numeroGuia=" + numeroGuia + "]";
+    }
 }

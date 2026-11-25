@@ -1,5 +1,7 @@
 package ec.edu.uce.pa.grupo.u2.pedido.application;
 
+import java.util.Optional;
+
 import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Envio;
 import ec.edu.uce.pa.grupo.u2.pedido.domain.repository.EnvioRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -17,7 +19,7 @@ public class EnvioService {
         this.envioRepository.create(envio);
     }
 
-    public Envio buscarPorId(Integer id) {
+    public Optional<Envio> buscarPorId(Integer id) {
         return this.envioRepository.read(id);
     }
 

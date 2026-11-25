@@ -1,5 +1,7 @@
 package ec.edu.uce.pa.grupo.u2.pedido.application;
 
+import java.util.Optional;
+
 import ec.edu.uce.pa.grupo.u2.pedido.domain.model.Pago;
 import ec.edu.uce.pa.grupo.u2.pedido.domain.repository.PagoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -17,7 +19,7 @@ public class PagoService {
         this.pagoRepository.create(pago);
     }
 
-    public Pago buscarPorId(Integer id) {
+    public Optional<Pago> buscarPorId(Integer id) {
         return this.pagoRepository.read(id);
     }
 

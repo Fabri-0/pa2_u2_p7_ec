@@ -1,5 +1,7 @@
 package ec.edu.uce.pa.grupo.u2.pedido.domain.repository;
 
+import java.util.Optional;
+
 import ec.edu.uce.pa.grupo.u2.pedido.domain.model.DetallePedido;
 
 public interface DetallePedidoRepository {
@@ -8,7 +10,7 @@ public interface DetallePedidoRepository {
     public void create(DetallePedido detallePedido);
 
     //Read por id
-    public DetallePedido read(Integer id);
+    public Optional<DetallePedido> read(Integer id);
 
     // Update
     public void update(DetallePedido detallePedido);
